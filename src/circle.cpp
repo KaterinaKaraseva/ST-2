@@ -1,9 +1,11 @@
 // Copyright 2022 UNN-CS
 #define _USE_MATH_DEFINES
-#include "circle.h"
 #include <cmath>
-#include <cstdint>
-#include <stdexcept>
+#include "circle.h"
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 
 Circle::Circle(double r) {
     setRadius(r);
