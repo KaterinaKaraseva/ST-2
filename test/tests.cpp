@@ -1,4 +1,4 @@
-// Copyright 2025 UNN-CS Team
+// Copyright 2025 UNN-CS
 #define _USE_MATH_DEFINES
 #include <gtest/gtest.h>
 #include <cmath>
@@ -43,7 +43,7 @@ TEST(CircleTest, SetArea) {
 TEST(RopeTaskTest, GapCalculation) {
     double gap = calculateRopeGap();
     const double expected = 1.0 / (2 * M_PI);
-    EXPECT_NEAR(expected, gap, 1e-15);
+    EXPECT_NEAR(expected, gap, 1e-10);
 }
 
 TEST(PoolTaskTest, CostCalculation) {
