@@ -1,9 +1,13 @@
-// Copyright 2025
+// Copyright 2025 UNN-CS Team
 #define _USE_MATH_DEFINES
 #include <gtest/gtest.h>
 #include <cmath>
 #include "circle.h"
 #include "tasks.h"
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 
 TEST(CircleTest, Constructor) {
     Circle c(2.0);
@@ -38,11 +42,12 @@ TEST(CircleTest, SetArea) {
 
 TEST(RopeTaskTest, GapCalculation) {
     double gap = calculateRopeGap();
-    EXPECT_DOUBLE_EQ(1.0 / (2 * M_PI), gap);
+    const double expected = 1.0 / (2 * M_PI);
+    EXPECT_NEAR(expected, gap, 1e-15);
 }
 
 TEST(PoolTaskTest, CostCalculation) {
     double cost = calculatePoolCost();
-    double expected = (7 * M_PI) * 1000 + (8 * M_PI) * 2000;
+    const double expected = (7 * M_PI) * 1000 + (8 * M_PI) * 2000;
     EXPECT_DOUBLE_EQ(expected, cost);
 }
