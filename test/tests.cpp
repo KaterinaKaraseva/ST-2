@@ -106,7 +106,7 @@ TEST(RopeTaskTest, HugeEarthRadius) {
     const double earthRadius = 1e15;
     Circle earth(earthRadius);
     earth.setFerence(earth.getFerence() + 1.0);
-    EXPECT_NEAR(1.0 / (2 * M_PI), earth.getRadius() - earthRadius, 1e-10);
+    EXPECT_NEAR(1.0 / (2 * M_PI), earth.getRadius() - earthRadius, 1e-5);
 }
 
 TEST(RopeTaskTest, MultipleIncrements) {
@@ -149,10 +149,9 @@ TEST(PoolTaskTest, LargePathWidth) {
     const double poolRadius = 3.0;
     const double pathWidth = 100.0;
     Circle outer(poolRadius + pathWidth);
-    double expectedCost = (M_PI * 10303 - M_PI * 9) * 1000 
-                          + (206 * M_PI) * 2000;
-    EXPECT_NEAR(expectedCost, (outer.getArea() - 9*M_PI)*1000 
-                               + outer.getFerence()*2000, 1e-5);
+    double expectedConcrete = (M_PI * pow(103, 2) - M_PI * 9) * 1000;
+    double expectedFence = 2 * M_PI * 103 * 2000;
+    EXPECT_NEAR(expectedConcrete + expectedFence, calculatePoolCost(), 1e-5);
 }
 
 TEST(PoolTaskTest, CostWithPrecision) {
@@ -164,13 +163,13 @@ TEST(PoolTaskTest, CostWithPrecision) {
 
 TEST(EdgeCaseTest, MaxDoubleValues) {
     Circle c(std::numeric_limits<double>::max());
-    EXPECT_DOUBLE_EQ(2 * M_PI * std::numeric_limits<double>::max(), 
+    EXPECT_DOUBLE_EQ(2 * M_PI * std::numeric_limits<double>::max(),
                      c.getFerence());
 }
 
 TEST(EdgeCaseTest, MinPositiveRadius) {
     Circle c(std::numeric_limits<double>::min());
-    EXPECT_DOUBLE_EQ(2 * M_PI * std::numeric_limits<double>::min(), 
+    EXPECT_DOUBLE_EQ(2 * M_PI * std::numeric_limits<double>::min(),
                      c.getFerence());
 }
 

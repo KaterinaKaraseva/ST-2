@@ -12,9 +12,9 @@ Circle::Circle(double r) {
 }
 
 Circle& Circle::setRadius(double r) {
-    radius = r;
-    ference = 2 * M_PI * r;
-    area = M_PI * r * r;
+    radius = fabs(r);
+    ference = 2 * M_PI * radius;
+    area = M_PI * radius * radius;
     return *this;
 }
 
