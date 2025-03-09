@@ -134,7 +134,7 @@ TEST(PoolTaskTest, NegativePathWidth) {
     
     double concreteArea = outer.getArea() - pool.getArea();
     double cost = concreteArea * 1000 + outer.getFerence() * 2000;
-    EXPECT_TRUE(cost < 0);
+    EXPECT_LT(cost, 0);
 }
 
 TEST(PoolTaskTest, DifferentPoolRadius) {
@@ -144,7 +144,8 @@ TEST(PoolTaskTest, DifferentPoolRadius) {
     Circle outer(poolRadius + pathWidth);
     
     double expected = (M_PI * 36 - M_PI * 25) * 1000 + (12 * M_PI) * 2000;
-    EXPECT_DOUBLE_EQ(expected, (outer.getArea() - pool.getArea()) * 1000 + outer.getFerence() * 2000);
+    EXPECT_DOUBLE_EQ(expected, (outer.getArea() - pool.getArea()) * 1000
+                                + outer.getFerence() * 2000);
 }
 
 TEST(PoolTaskTest, LargePathWidth) {
@@ -152,8 +153,10 @@ TEST(PoolTaskTest, LargePathWidth) {
     const double pathWidth = 100.0;
     Circle outer(poolRadius + pathWidth);
     
-    double expectedCost = (M_PI * 10303 - M_PI * 9) * 1000 + (206 * M_PI) * 2000;
-    EXPECT_NEAR(expectedCost, (outer.getArea() - 9*M_PI)*1000 + outer.getFerence()*2000, 1e-5);
+    double expectedCost = (M_PI * 10303 - M_PI * 9) * 1000 
+                          + (206 * M_PI) * 2000;
+    EXPECT_NEAR(expectedCost, (outer.getArea() - 9*M_PI)*1000 
+                               + outer.getFerence()*2000, 1e-5);
 }
 
 TEST(PoolTaskTest, CostWithPrecision) {

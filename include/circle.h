@@ -10,9 +10,9 @@ class Circle {
 
  public:
     explicit Circle(double r);
-    void setRadius(double r);
-    void setFerence(double f);
-    void setArea(double a);
+    Circle& setRadius(double r);
+    Circle& setFerence(double f);
+    Circle& setArea(double a);
     double getRadius() const;
     double getFerence() const;
     double getArea() const;
