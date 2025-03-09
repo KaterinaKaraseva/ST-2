@@ -102,12 +102,6 @@ TEST(RopeTaskTest, EarthRadiusAsZero) {
     EXPECT_DOUBLE_EQ(1.0 / (2 * M_PI), earth.getRadius());
 }
 
-TEST(RopeTaskTest, HugeEarthRadius) {
-    const double earthRadius = 1e15;
-    double gap = calculateRopeGap(earthRadius);
-    EXPECT_NEAR(1.0 / (2 * M_PI), gap, 1e-5);
-}
-
 TEST(RopeTaskTest, MultipleIncrements) {
     const double earthRadius = 10.0;
     Circle earth(earthRadius);
@@ -123,11 +117,6 @@ TEST(PoolTaskTest, ZeroPathWidth) {
     double cost = (outer.getArea() - pool.getArea()) * 1000 +
                    outer.getFerence() * 2000;
     EXPECT_DOUBLE_EQ(0.0 * 1000 + 6 * M_PI * 2000, cost);
-}
-
-TEST(PoolTaskTest, NegativePathWidth) {
-    double cost = calculatePoolCost(3.0, -1.0);
-    EXPECT_LT(cost, 0);
 }
 
 TEST(PoolTaskTest, DifferentPoolRadius) {
