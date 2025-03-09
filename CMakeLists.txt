@@ -11,13 +11,3 @@ set(include_dest "include/")
 
 add_subdirectory(src)
 add_subdirectory(test)
-
-
-add_subdirectory(googletest)
-
-include_directories(include)
-
-add_library(circle STATIC src/circle.cpp src/tasks.cpp)
-
-add_executable(tests test/tests.cpp)
-target_link_libraries(tests circle gtest gtest_main pthread)
