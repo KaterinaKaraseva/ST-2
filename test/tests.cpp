@@ -121,7 +121,6 @@ TEST(PoolTaskTest, ZeroPathWidth) {
     const double poolRadius = 3.0;
     Circle pool(poolRadius);
     Circle outer(poolRadius + 0.0);
-    
     double cost = (outer.getArea() - pool.getArea()) * 1000 +
                    outer.getFerence() * 2000;
     EXPECT_DOUBLE_EQ(0.0 * 1000 + 6 * M_PI * 2000, cost);
@@ -131,7 +130,6 @@ TEST(PoolTaskTest, NegativePathWidth) {
     const double poolRadius = 3.0;
     Circle pool(poolRadius);
     Circle outer(poolRadius - 1.0);
-    
     double concreteArea = outer.getArea() - pool.getArea();
     double cost = concreteArea * 1000 + outer.getFerence() * 2000;
     EXPECT_LT(cost, 0);
@@ -142,7 +140,6 @@ TEST(PoolTaskTest, DifferentPoolRadius) {
     const double pathWidth = 1.0;
     Circle pool(poolRadius);
     Circle outer(poolRadius + pathWidth);
-    
     double expected = (M_PI * 36 - M_PI * 25) * 1000 + (12 * M_PI) * 2000;
     EXPECT_DOUBLE_EQ(expected, (outer.getArea() - pool.getArea()) * 1000
                                 + outer.getFerence() * 2000);
@@ -152,7 +149,6 @@ TEST(PoolTaskTest, LargePathWidth) {
     const double poolRadius = 3.0;
     const double pathWidth = 100.0;
     Circle outer(poolRadius + pathWidth);
-    
     double expectedCost = (M_PI * 10303 - M_PI * 9) * 1000 
                           + (206 * M_PI) * 2000;
     EXPECT_NEAR(expectedCost, (outer.getArea() - 9*M_PI)*1000 
@@ -168,12 +164,14 @@ TEST(PoolTaskTest, CostWithPrecision) {
 
 TEST(EdgeCaseTest, MaxDoubleValues) {
     Circle c(std::numeric_limits<double>::max());
-    EXPECT_DOUBLE_EQ(2 * M_PI * std::numeric_limits<double>::max(), c.getFerence());
+    EXPECT_DOUBLE_EQ(2 * M_PI * std::numeric_limits<double>::max(), 
+                     c.getFerence());
 }
 
 TEST(EdgeCaseTest, MinPositiveRadius) {
     Circle c(std::numeric_limits<double>::min());
-    EXPECT_DOUBLE_EQ(2 * M_PI * std::numeric_limits<double>::min(), c.getFerence());
+    EXPECT_DOUBLE_EQ(2 * M_PI * std::numeric_limits<double>::min(), 
+                     c.getFerence());
 }
 
 TEST(ConsistencyTest, AllSetters) {
