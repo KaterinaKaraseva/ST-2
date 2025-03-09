@@ -104,9 +104,8 @@ TEST(RopeTaskTest, EarthRadiusAsZero) {
 
 TEST(RopeTaskTest, HugeEarthRadius) {
     const double earthRadius = 1e15;
-    Circle earth(earthRadius);
-    earth.setFerence(earth.getFerence() + 1.0);
-    EXPECT_NEAR(1.0 / (2 * M_PI), earth.getRadius() - earthRadius, 1e-5);
+    double gap = calculateRopeGap(earthRadius);
+    EXPECT_NEAR(1.0 / (2 * M_PI), gap, 1e-5);
 }
 
 TEST(RopeTaskTest, MultipleIncrements) {
@@ -127,11 +126,7 @@ TEST(PoolTaskTest, ZeroPathWidth) {
 }
 
 TEST(PoolTaskTest, NegativePathWidth) {
-    const double poolRadius = 3.0;
-    Circle pool(poolRadius);
-    Circle outer(poolRadius - 1.0);
-    double concreteArea = outer.getArea() - pool.getArea();
-    double cost = concreteArea * 1000 + outer.getFerence() * 2000;
+    double cost = calculatePoolCost(3.0, -1.0);
     EXPECT_LT(cost, 0);
 }
 
@@ -146,12 +141,10 @@ TEST(PoolTaskTest, DifferentPoolRadius) {
 }
 
 TEST(PoolTaskTest, LargePathWidth) {
-    const double poolRadius = 3.0;
-    const double pathWidth = 100.0;
-    Circle outer(poolRadius + pathWidth);
-    double expectedConcrete = (M_PI * pow(103, 2) - M_PI * 9) * 1000;
-    double expectedFence = 2 * M_PI * 103 * 2000;
-    EXPECT_NEAR(expectedConcrete + expectedFence, calculatePoolCost(), 1e-5);
+    double cost = calculatePoolCost(3.0, 100.0);
+    double expectedConcrete = (M_PI * (103.0 * 103.0 - 9.0)) * 1000;
+    double expectedFence = 2 * M_PI * 103.0 * 2000;
+    EXPECT_NEAR(expectedConcrete + expectedFence, cost, 1e-5);
 }
 
 TEST(PoolTaskTest, CostWithPrecision) {
